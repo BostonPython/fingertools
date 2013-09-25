@@ -11,6 +11,9 @@ def meetup_call(slug, **kwargs):
     kwargs['key'] = API_KEY
     url = "https://api.meetup.com/" + slug
     url += "?" + urllib.urlencode(kwargs)
+    return meetup_url_call(url)
+
+def meetup_url_call(url):
     if DEBUG > 0:
         print "opening %r" % url
     resp = urllib.urlopen(url)
@@ -19,17 +22,19 @@ def meetup_call(slug, **kwargs):
 
 def meetup(slug, **kwargs):
     results = []
-    offset = 0
+    response = meetup_call(slug, **kwargs)
+
     while True:
-        moreresults = meetup_call(slug, offset=offset, **kwargs)
         try:
-            meta = moreresults['meta']
+            next = response['meta']['next']
         except KeyError:
-            print moreresults
+            print response
             raise
-        #print "Count = %d, total count = %d" % (meta['count'], meta['total_count'])
-        if meta['count'] == 0:
+        results.extend(response['results'])
+
+        if not next:
             break
-        results.extend(moreresults['results'])
-        offset += 1
+
+        response = meetup_url_call(next)
+
     return results
