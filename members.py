@@ -2,36 +2,14 @@
 
 # http://www.meetup.com/meetup_api/
 
-import pprint, urllib, json, operator, time
+import pprint, time
 from collections import defaultdict
 
-from keys import API_KEY, GROUP_ID
-
-def meetup(slug, **kwargs):
-    kwargs['key'] = API_KEY
-    url = "https://api.meetup.com/" + slug
-    url += "?" + urllib.urlencode(kwargs)
-    #print "opening %r" % url
-    resp = urllib.urlopen(url)
-    j = resp.read().decode('iso8859-1')
-    return json.loads(j)
+from meetup import meetup
 
 def group_members(**kwargs):
     """Return a list of the members of a group."""
-    members = []
-    offset = 0
-    while True:
-        moremembers = meetup("members", offset=offset, **kwargs)
-        try:
-            meta = moremembers['meta']
-        except KeyError:
-            print moremembers
-            raise
-        #print "Count = %d, total count = %d" % (meta['count'], meta['total_count'])
-        if meta['count'] == 0:
-            break
-        members.extend(moremembers['results'])
-        offset += 1
+    members = meetup("members", **kwargs)
     for m in members:
         last_visit = time.strptime(m['visited'][:-4], "%Y-%m-%d %H:%M:%S")
         m['visitage'] = time.time() - time.mktime(last_visit)
@@ -127,6 +105,10 @@ OTHERS = """
     bostonsoftware
     Rails-Boston
     Automated-Testing-Boston
+"""
+OTHERS = """
+PyLadies-Boston
+Automated-Testing-Boston
 """
 #    Boston-MongoDB-User-Group
 #    austinpython
