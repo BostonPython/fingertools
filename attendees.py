@@ -2,30 +2,18 @@
 
 # http://www.meetup.com/meetup_api/
 
-import argparse, pprint, urllib, json, random, sys, time
+import argparse, pprint, random, sys, time
 from collections import defaultdict
 
-from keys import API_KEY, GROUP_ID
+from meetup import meetup
+from keys import GROUP_ID
 
 the_encoding = sys.stdout.encoding or 'utf8'
-
-def meetup(slug, **kwargs):
-    kwargs['key'] = API_KEY
-    url = "https://api.meetup.com/" + slug
-    url += "?" + urllib.urlencode(kwargs)
-    print "opening %r" % url
-    resp = urllib.urlopen(url)
-    j = resp.read()
-    #print repr(j).replace(r'\n', '\n')
-    j = j.decode('utf-8')
-    data = json.loads(j)
-    #pprint.pprint(data)
-    return data
 
 def list_events(**kwargs):
     """Return a list of events, from the 2/events Meetup API call."""
     kwargs.setdefault('group_id', GROUP_ID)
-    events = meetup("2/events", **kwargs)['results']
+    events = meetup("2/events", **kwargs)
     for event in events:
         event['when'] = time.strftime("%d %b %Y", time.localtime(event['time']//1000))
     return events
@@ -34,7 +22,7 @@ def event_answers(event_id):
     """Return a dict mapping {"yes","no","maybe"} onto (username, num_guests) pairs."""
     answers = defaultdict(list)
     rsvps = meetup("2/rsvps", event_id=event_id)
-    for rsvp in rsvps['results']:
+    for rsvp in rsvps:
         answers[rsvp['response']].append((rsvp['member']['name'], rsvp['guests']))
     return answers
 
@@ -42,7 +30,7 @@ def event_attendees(event_id):
     """Return the set of attendees in the yes or waiting list."""
     rsvps = meetup("2/rsvps", event_id=event_id)
     attendees = set()
-    for rsvp in rsvps['results']:
+    for rsvp in rsvps:
         if rsvp['response'] in ['yes', 'waitlist']:
             member = rsvp['member']
             attendees.add((member['member_id'], member['name']))
