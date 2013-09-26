@@ -1,7 +1,7 @@
 """Rough and ready meetup.com api wrapper."""
 
 import json
-import urllib
+import urllib, urllib2
 
 from keys import API_KEY
 
@@ -16,8 +16,11 @@ def meetup_call(slug, **kwargs):
 def meetup_url_call(url):
     if DEBUG > 0:
         print "opening %r" % url
-    resp = urllib.urlopen(url)
-    j = resp.read().decode('iso8859-1')
+
+    headers = { 'Accept-Charset': 'utf-8' }
+    req = urllib2.Request(url, None, headers)
+    resp = urllib2.urlopen(req)
+    j = resp.read()
     return json.loads(j)
 
 def meetup(slug, **kwargs):
