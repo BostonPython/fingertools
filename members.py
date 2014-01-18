@@ -5,11 +5,13 @@
 import pprint, time
 from collections import defaultdict
 
-from meetup import meetup
+import meetup
+
+meetup.DEBUG = 0
 
 def group_members(**kwargs):
     """Return a list of the members of a group."""
-    members = meetup("members", **kwargs)
+    members = meetup.meetup("members", **kwargs)
     for m in members:
         last_visit = time.strptime(m['visited'][:-4], "%Y-%m-%d %H:%M:%S")
         m['visitage'] = time.time() - time.mktime(last_visit)
@@ -90,6 +92,7 @@ OTHERS = """
     sfpython
     nycpython
     PyLadies-Boston
+    Pythonista-Organization-of-Worcester-Expert-to-Rookie
     django-nyc
     PyData-NYC
     Royal-Python-Society-Providence
@@ -105,10 +108,6 @@ OTHERS = """
     bostonsoftware
     Rails-Boston
     Automated-Testing-Boston
-"""
-OTHERS = """
-PyLadies-Boston
-Automated-Testing-Boston
 """
 #    Boston-MongoDB-User-Group
 #    austinpython
@@ -131,4 +130,3 @@ Automated-Testing-Boston
 for other in OTHERS.split():
     members = group_members(group_urlname=other)
     show_group(other, members, len(bospy))
-
