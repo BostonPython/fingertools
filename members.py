@@ -86,12 +86,14 @@ bospy = group_members(group_urlname='bostonpython')
 show_group('bostonpython', bospy)
 
 OTHERS = """
+    PyLadies-Boston
+    nycpython
+    NYC-PyLadies
     djangoboston
     bostonphp
+    Boston_New_Technology
     Code-Mentors-Boston
     sfpython
-    nycpython
-    PyLadies-Boston
     Pythonista-Organization-of-Worcester-Expert-to-Rookie
     django-nyc
     PyData-NYC
@@ -101,7 +103,6 @@ OTHERS = """
     javascript-2
     Openstack-Boston
     boston-java
-    Lean-Startup-Circle-Boston
     Boston-Technology-Explorers
     Boston-Predictive-Analytics
     TechinmotionBoston
@@ -109,6 +110,7 @@ OTHERS = """
     Rails-Boston
     Automated-Testing-Boston
 """
+#    Lean-Startup-Circle-Boston
 #    Boston-MongoDB-User-Group
 #    austinpython
 #    dcpython
