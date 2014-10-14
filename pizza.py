@@ -49,3 +49,30 @@ print "%2d meat" % meat
 print "%2d veggie" % veggie
 print
 print "%2d total" % (cheese + meat + veggie)
+
+# Soda!
+
+# Answers to the 10/2014 project night:
+#   53 water        55%
+#   21 Coke         20%
+#   14 Diet Coke    15%
+#    8 Sprite       10%
+
+cups = 1.5 * attending
+cups_per_bottle = 67.0 / 8  # 67 ounces in a 2-liter bottle
+
+def round_bottle(b):
+    if b - int(b) < .25:
+        b = int(b)
+    else:
+        b = int(b+1)
+    return b or 1
+
+cokes = round_bottle(.20 * cups / cups_per_bottle)
+diet_cokes = round_bottle(.15 * cups / cups_per_bottle)
+sprites = round_bottle(.10 * cups / cups_per_bottle)
+
+print
+print "%2d cokes" % cokes
+print "%2d diet cokes" % diet_cokes
+print "%2d sprites" % sprites
