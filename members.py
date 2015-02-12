@@ -87,6 +87,7 @@ show_group('bostonpython', bospy)
 
 OTHERS = """
     PyLadies-Boston
+    PyData-Boston
     nycpython
     NYC-PyLadies
     djangoboston
@@ -94,16 +95,12 @@ OTHERS = """
     Boston_New_Technology
     Code-Mentors-Boston
     sfpython
-    Pythonista-Organization-of-Worcester-Expert-to-Rookie
     django-nyc
-    PyData-NYC
-    Royal-Python-Society-Providence
     frpythoneers
     pdxpython
     javascript-2
     Openstack-Boston
     boston-java
-    Boston-Technology-Explorers
     Boston-Predictive-Analytics
     TechinmotionBoston
     bostonsoftware
