@@ -58,7 +58,7 @@ print "%2d total" % (cheese + meat + veggie)
 #   14 Diet Coke    15%
 #    8 Sprite       10%
 
-cups = 1.5 * attending
+cups = 2 * attending
 cups_per_bottle = 67.0 / 8  # 67 ounces in a 2-liter bottle
 
 def round_bottle(b):
