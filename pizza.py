@@ -73,6 +73,6 @@ diet_cokes = round_bottle(.15 * cups / cups_per_bottle)
 sprites = round_bottle(.10 * cups / cups_per_bottle)
 
 print
-print "%2d cokes (%d 20-oz)" % (cokes, round_bottle(.20 * attending))
-print "%2d diet cokes (%d 20-oz)" % (diet_cokes, round_bottle(.15 * attending))
-print "%2d sprites (%d 20-oz)" % (sprites, round_bottle(.10 * attending))
+print "%2d cokes (2 liter)" % (cokes,)
+print "%2d diet cokes (2 liter)" % (diet_cokes,)
+print "%2d sprites (2 liter)" % (sprites,)
