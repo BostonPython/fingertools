@@ -67,7 +67,7 @@ def show_group(name, members, baseline=None):
     joining = "  ".join("%s:%2d%%" % (m, (99.4*c/len(members)) if members else 0) for m,c in join_buckets(members))
     other_group_share = show_other_group(name, bospy, members) if bospy != members else "     --     "
 
-    print "%-25s %4d (%s%4d), %s %s   Joined %s   [%s]" % (
+    print "%-25s %5d (%s%4d)  %s %s   %s   [%s]" % (
         name[:25], len(members), sign, delta,
         active_summary(members, 3), active_summary(members, 6),
         joining, other_group_share,
@@ -82,6 +82,10 @@ def join_buckets(members):
 
 bospy = group_members(group_urlname='bostonpython')
 #print_members(bospy)
+print(
+"-- group --------------   -size--delta-   ----- active -----   - joined ------------------------   -- overlap ---"
+#bostonpython               5897 (=   0)   22% <3mo  33% <6mo   1: 2%  2: 0%  3: 1%  4: 1%  6: 3%   [     --     ]
+)
 
 show_group('bostonpython', bospy)
 
@@ -93,20 +97,22 @@ OTHERS = """
     djangoboston
     bostonphp
     Boston_New_Technology
-    Code-Mentors-Boston
     sfpython
     django-nyc
     frpythoneers
     pdxpython
-    javascript-2
     Openstack-Boston
     boston-java
-    Boston-Predictive-Analytics
     TechinmotionBoston
     bostonsoftware
-    Rails-Boston
-    Automated-Testing-Boston
+    Open-edX-Boston
+    openedX
 """
+#    Code-Mentors-Boston
+#    Rails-Boston
+#    Automated-Testing-Boston
+#    javascript-2
+#    Boston-Predictive-Analytics
 #    Lean-Startup-Circle-Boston
 #    Boston-MongoDB-User-Group
 #    austinpython
