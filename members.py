@@ -83,7 +83,7 @@ def join_buckets(members):
 bospy = group_members(group_urlname='bostonpython')
 #print_members(bospy)
 print(
-"-- group --------------   -size--delta-   ----- active -----   - joined ------------------------   -- overlap ---"
+"-- group --------------   -size--delta-   -- active --------   -- joined -----------------------   -- overlap ---"
 #bostonpython               5897 (=   0)   22% <3mo  33% <6mo   1: 2%  2: 0%  3: 1%  4: 1%  6: 3%   [     --     ]
 )
 
