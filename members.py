@@ -96,6 +96,8 @@ OTHERS = """
     nycpython
     NYC-PyLadies
     djangoboston
+    Open-edX-Boston
+    openedX
 """
 """
     bostonphp
@@ -108,8 +110,6 @@ OTHERS = """
     boston-java
     TechinmotionBoston
     bostonsoftware
-    Open-edX-Boston
-    openedX
 """
 #    Code-Mentors-Boston
 #    Rails-Boston
