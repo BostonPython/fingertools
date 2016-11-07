@@ -91,7 +91,6 @@ show_group('bostonpython', bospy)
 
 OTHERS = """
     PyLadies-Boston
-    Learning-to-Program-With-Python
     PyData-Boston
     nycpython
     NYC-PyLadies
