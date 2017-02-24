@@ -27,3 +27,10 @@ to events.  My most famous use of this is to raffle prizes at events::
     Oscar Arevalo-Toledo
     >>> print(next(winners))
     Albert Putnam
+
+To run this, you'll need to create a keys.py file, with the API key you get
+from the `Meetup API`_ page::
+
+    API_KEY = "93d17c424e4f535877437b5a3a4150"
+
+.. _Meetup API: https://secure.meetup.com/meetup_api/key/
