@@ -1,19 +1,23 @@
+#!/usr/bin/env python3
+#  -*- coding: utf-8 -*-
+
+
 """How many pizzas do we need?"""
 
 import math
 
-people = int(raw_input("How many RSVPs? "))
+people = int(input("How many RSVPs? ") or 0)
 
 # The MUC (Meetup Universal Constant)
 muc = 65
-muc_str = raw_input("What percentage will show up? [%d] " % muc)
+muc_str = input(f"What percentage will show up? [{muc}] ")
 if muc_str.strip():
     muc = int(muc_str.strip())
 
-attending = people * muc / 100
 
-print
-print "%d people will show up (guess)" % attending
+attending = int(people * muc / 100)
+
+print(f"\n{attending} people will show up (guess)\n")
 
 # Appetite estimation
 slices = attending * 2.5
@@ -21,7 +25,7 @@ slices = attending * 2.5
 # Basic pizza geometry
 pies = slices / 8
 
-print "%.1f pizzas (or so)" % pies
+print(f"🍕  {pies:.2f} pizzas (or so)")
 
 # From answers to the 10/2012 project night:
 #   81 answers
@@ -43,12 +47,10 @@ if cheese < 1:
     cheese = 1
 cheese = int(math.ceil(cheese))
 
-print
-print "%2d cheese" % cheese
-print "%2d meat" % meat
-print "%2d veggie" % veggie
-print
-print "%2d total" % (cheese + meat + veggie)
+print(f"\n🧀  {cheese} cheese")
+print(f"🍖  {meat} meat")
+print(f"🍅  {veggie} veggie")
+print(f"\n🍕  {(cheese+meat+veggie)} total")
 
 # Soda!
 
@@ -72,7 +74,6 @@ cokes = round_bottle(.20 * cups / cups_per_bottle)
 diet_cokes = round_bottle(.15 * cups / cups_per_bottle)
 sprites = round_bottle(.10 * cups / cups_per_bottle)
 
-print
-print "%2d cokes (2 liter)" % (cokes,)
-print "%2d diet cokes (2 liter)" % (diet_cokes,)
-print "%2d sprites (2 liter)" % (sprites,)
+print(f"\n{cokes} cokes (2 liter)")
+print(f"{diet_cokes} diet cokes (2 liter)")
+print(f"{sprites} sprites (2 liter)")
