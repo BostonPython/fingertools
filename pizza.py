@@ -1,7 +1,6 @@
 #!/usr/bin/env python3
 #  -*- coding: utf-8 -*-
 
-
 """How many pizzas do we need?"""
 
 import math
@@ -47,10 +46,12 @@ if cheese < 1:
     cheese = 1
 cheese = int(math.ceil(cheese))
 
-print(f"\n🧀  {cheese} cheese")
+print()
+print(f"🧀  {cheese} cheese")
 print(f"🍖  {meat} meat")
 print(f"🍅  {veggie} veggie")
-print(f"\n🍕  {(cheese+meat+veggie)} total")
+print()
+print(f"🍕  {(cheese+meat+veggie)} total")
 
 # Soda!
 
@@ -74,6 +75,7 @@ cokes = round_bottle(.20 * cups / cups_per_bottle)
 diet_cokes = round_bottle(.15 * cups / cups_per_bottle)
 sprites = round_bottle(.10 * cups / cups_per_bottle)
 
-print(f"\n{cokes} cokes (2 liter)")
-print(f"{diet_cokes} diet cokes (2 liter)")
-print(f"{sprites} sprites (2 liter)")
+print()
+print(f"   {cokes} cokes (2 liter)")
+print(f"   {diet_cokes} diet cokes (2 liter)")
+print(f"   {sprites} sprites (2 liter)")
