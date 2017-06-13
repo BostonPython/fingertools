@@ -16,7 +16,8 @@ if muc_str.strip():
 
 attending = int(people * muc / 100)
 
-print(f"\n{attending} people will show up (guess)\n")
+print()
+print(f"👪  {attending} people will show up (guess)\n")
 
 # Appetite estimation
 slices = attending * 2.5
