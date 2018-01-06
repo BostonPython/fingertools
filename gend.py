@@ -1,3 +1,5 @@
+"""Guess at genders"""
+
 import json
 import re
 
@@ -25,20 +27,50 @@ def parts(s):
         for hump in humps(word):
             yield hump
 
+TITLES = {
+    'ms.': 'female',
+    'mrs.': 'female',
+    'mr.': 'male',
+}
+
+def first_name(name):
+    """First name, but use next if first is an initial or title."""
+    words = name.split()
+    first = words[0]
+    if len(words) > 2 and first.lower() not in TITLES:
+        if first.endswith('.') and len(first) <= 4:
+            first = words[1]
+        if first == 'Dr':
+            first = words[1]
+    return first
+
+GOOD_GUESSES = ['male', 'female']
+
 def guess_gender(name, country=None, split=False):
     if not name:
         return "unknown"
-    first_name = name.split()[0].lower()
-    guess = exceptions.get(first_name)
+
+    # A parenthetical anywhere is the best indicator.
+    paren = re.search(r"\((\w+)\)", name)
+    if paren:
+        guess = guess_gender(paren.group(1))
+        if guess in GOOD_GUESSES:
+            return guess
+
+    first = first_name(name)
+    first_lower = first.lower()
+    guess = TITLES.get(first_lower)
     if guess is None:
-        guess = gender_guess.get_gender(first_name, country=country)
+        guess = exceptions.get(first_lower)
+    if guess is None:
+        guess = gender_guess.get_gender(first, country=country)
     if guess == "andy" and country is None:
-        guess = guess_gender(name, country="usa")
+        guess = guess_gender(name, country="usa", split=split)
     if guess.startswith("mostly_"):
         guess = guess[len("mostly_"):]
-    if guess == "unknown" and not split:
-        guesses = [guess_gender(part, split=True) for part in parts(first_name)]
+    if guess not in GOOD_GUESSES and not split:
+        guesses = [guess_gender(part, split=True) for part in parts(first)]
         for guess in guesses:
-            if guess in ['male', 'female']:
+            if guess in GOOD_GUESSES:
                 break
     return guess

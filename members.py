@@ -21,7 +21,7 @@ def group_members(**kwargs):
         first_name = m['name'].split()[0]
         gend = guess_gender(first_name)
         if gend not in ['male', 'female']:
-            #print("%s: %s" % (first_name, gend))
+            #print("%s: %s" % (m['name'], gend))
             gend = "unknown"
         m['gender'] = gend
     return members
