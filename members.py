@@ -5,6 +5,7 @@
 import pprint, time
 from collections import defaultdict
 
+from gend import guess_gender
 import meetup
 
 meetup.DEBUG = 0
@@ -17,6 +18,12 @@ def group_members(**kwargs):
         m['visitage'] = time.time() - time.mktime(last_visit)
         joined = time.strptime(m['joined'].replace("EDT ", "").replace("EST ", ""), "%a %b %d %H:%M:%S %Y")
         m['joinage'] = time.time() - time.mktime(joined)
+        first_name = m['name'].split()[0]
+        gend = guess_gender(first_name)
+        if gend not in ['male', 'female']:
+            #print("%s: %s" % (first_name, gend))
+            gend = "unknown"
+        m['gender'] = gend
     return members
 
 def print_members(members):
@@ -48,6 +55,11 @@ def active_summary(members, mos):
     else:
         return " --  <%dmo" % (mos,)
 
+def gender_summary(members):
+    male = sum(int(m['gender'] == 'male') for m in members)
+    female = sum(int(m['gender'] == 'female') for m in members)
+    return "%2d%%/%2d%%" % (100.0*male/len(members), 100.0*female/len(members))
+
 def join_count(members, sec_lo, sec_hi):
     return sum(1 if sec_lo <= m['joinage'] < sec_hi else 0 for m in members)
 
@@ -67,10 +79,11 @@ def show_group(name, members, baseline=None):
     joining = "  ".join("%s:%2d%%" % (m, (99.4*c/len(members)) if members else 0) for m,c in join_buckets(members))
     other_group_share = show_other_group(name, bospy, members) if bospy != members else "     --     "
 
-    print "%-25s %5d (%s%4d)  %s %s   %s   [%s]" % (
+    print "%-25s %5d (%s%4d)  %s %s   %s   [%s]  %s" % (
         name[:25], len(members), sign, delta,
         active_summary(members, 3), active_summary(members, 6),
         joining, other_group_share,
+        gender_summary(members),
     )
 
 def join_buckets(members):
@@ -83,8 +96,8 @@ def join_buckets(members):
 bospy = group_members(group_urlname='bostonpython')
 #print_members(bospy)
 print(
-"-- group --------------   -size--delta-   -- active --------   -- joined -----------------------   -- overlap ---"
-#bostonpython               5897 (=   0)   22% <3mo  33% <6mo   1: 2%  2: 0%  3: 1%  4: 1%  6: 3%   [     --     ]
+"-- group --------------   -size--delta-   -- active --------   -- joined -----------------------   -- overlap ---  --m/f--"
+#bostonpython               5897 (=   0)   22% <3mo  33% <6mo   1: 2%  2: 0%  3: 1%  4: 1%  6: 3%   [     --     ]  75%/25%
 )
 
 show_group('bostonpython', bospy)
