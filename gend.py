@@ -40,6 +40,8 @@ def first_name(name):
     if len(words) > 2 and first.lower() not in TITLES:
         if first.endswith('.') and len(first) <= 4:
             first = words[1]
+        if len(first) == 1:
+            first = words[1]
         if first == 'Dr':
             first = words[1]
     return first

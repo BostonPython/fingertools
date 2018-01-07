@@ -10,6 +10,8 @@ import meetup
 
 meetup.DEBUG = 0
 
+unknown_names = set()
+
 def group_members(**kwargs):
     """Return a list of the members of a group."""
     members = meetup.meetup("members", **kwargs)
@@ -18,10 +20,9 @@ def group_members(**kwargs):
         m['visitage'] = time.time() - time.mktime(last_visit)
         joined = time.strptime(m['joined'].replace("EDT ", "").replace("EST ", ""), "%a %b %d %H:%M:%S %Y")
         m['joinage'] = time.time() - time.mktime(joined)
-        first_name = m['name'].split()[0]
-        gend = guess_gender(first_name)
+        gend = guess_gender(m['name'])
         if gend not in ['male', 'female']:
-            #print("%s: %s" % (m['name'], gend))
+            unknown_names.add(m['name'])
             gend = "unknown"
         m['gender'] = gend
     return members
@@ -58,7 +59,7 @@ def active_summary(members, mos):
 def gender_summary(members):
     male = sum(int(m['gender'] == 'male') for m in members)
     female = sum(int(m['gender'] == 'female') for m in members)
-    return "%2d%%/%2d%%" % (100.0*male/len(members), 100.0*female/len(members))
+    return "%2d/%2d%%" % (100.0*male/len(members), 100.0*female/len(members))
 
 def join_count(members, sec_lo, sec_hi):
     return sum(1 if sec_lo <= m['joinage'] < sec_hi else 0 for m in members)
@@ -151,3 +152,6 @@ OTHERS = """
 for other in OTHERS.split():
     members = group_members(group_urlname=other)
     show_group(other, members, len(bospy))
+
+print("\nUnknown gender:")
+print("\n".join(sorted(unknown_names)))
