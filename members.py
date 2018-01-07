@@ -10,6 +10,7 @@ import meetup
 
 meetup.DEBUG = 0
 
+all_names = set()
 unknown_names = set()
 
 def group_members(**kwargs):
@@ -20,9 +21,10 @@ def group_members(**kwargs):
         m['visitage'] = time.time() - time.mktime(last_visit)
         joined = time.strptime(m['joined'].replace("EDT ", "").replace("EST ", ""), "%a %b %d %H:%M:%S %Y")
         m['joinage'] = time.time() - time.mktime(joined)
+        all_names.add(m['name'].lower())
         gend = guess_gender(m['name'])
         if gend not in ['male', 'female']:
-            unknown_names.add(m['name'])
+            unknown_names.add(m['name'].lower())
             gend = "unknown"
         m['gender'] = gend
     return members
@@ -97,8 +99,8 @@ def join_buckets(members):
 bospy = group_members(group_urlname='bostonpython')
 #print_members(bospy)
 print(
-"-- group --------------   -size--delta-   -- active --------   -- joined -----------------------   -- overlap ---  --m/f--"
-#bostonpython               5897 (=   0)   22% <3mo  33% <6mo   1: 2%  2: 0%  3: 1%  4: 1%  6: 3%   [     --     ]  75%/25%
+"-- group --------------   -size--delta-   -- active --------   -- joined -----------------------   -- overlap ---  -m/f--"
+#bostonpython               5897 (=   0)   22% <3mo  33% <6mo   1: 2%  2: 0%  3: 1%  4: 1%  6: 3%   [     --     ]  75/25%
 )
 
 show_group('bostonpython', bospy)
@@ -153,5 +155,8 @@ for other in OTHERS.split():
     members = group_members(group_urlname=other)
     show_group(other, members, len(bospy))
 
-print("\nUnknown gender:")
-print("\n".join(sorted(unknown_names)))
+a = len(all_names)
+u = len(unknown_names)
+print("Gendered {} names of {}, {:.1f}%".format(a - u, a, 100.0 * (a - u) / a))
+#print("\nUnknown gender:")
+#print("\n".join(sorted(unknown_names)))
