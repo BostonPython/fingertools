@@ -15,6 +15,8 @@ from gend import guess_gender
     ('Dr. Erik Nelson', 'male'),
     ('Dr. Mark A. Friedman', 'male'),
     ('Rev. Johnny Healey', 'male'),
+    ('john_smith', 'male'),
+    ('susie123', 'female'),
 ])
 def test_guess_gender(name, gender):
     assert guess_gender(name) == gender

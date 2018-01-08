@@ -23,9 +23,9 @@ def humps(s):
         yield s[a:b]
 
 def parts(s):
-    for word in re.split(r"\W", s):
+    for word in re.split(r"[\W_]", s):
         for hump in humps(word):
-            yield hump
+            yield hump.rstrip('012345679')
 
 TITLES = {
     'ms.': 'female',
