@@ -2,6 +2,8 @@
 
 # http://www.meetup.com/meetup_api/
 
+from __future__ import print_function
+
 import pprint, time
 from collections import defaultdict
 
@@ -36,8 +38,8 @@ def print_members(members):
             name = member['name'].encode('ascii')
         except:
             name = repr(member['name'])
-        print "#%s: %s, %s" % (member['id'], name, member['joined'])
-    print "%d members" % len(members)
+        print("#%s: %s, %s" % (member['id'], name, member['joined']))
+    print("%d members" % len(members))
 
 def show_other_group(name, us, other=None):
     other = other or group_members(group_urlname=name)
@@ -45,7 +47,7 @@ def show_other_group(name, us, other=None):
     u, o, b = len(us), len(other), len(both)
     percent_us = 100.0*b/u if u else 0.0
     percent_other = 100.0*b/o if o else 0.0
-    #print "%-15s %4d members, %s %s (%4d overlap, %2d%% of us, %2d%% of them)" % (name[:15], o, active_summary(other, 3), active_summary(other, 6), b, percent_us, percent_other)
+    #print("%-15s %4d members, %s %s (%4d overlap, %2d%% of us, %2d%% of them)" % (name[:15], o, active_summary(other, 3), active_summary(other, 6), b, percent_us, percent_other))
     return "%4d %2d%%/%2d%%" % (b, percent_us, percent_other)
 
 def active_count(members, secs):
@@ -82,12 +84,12 @@ def show_group(name, members, baseline=None):
     joining = "  ".join("%s:%2d%%" % (m, (99.4*c/len(members)) if members else 0) for m,c in join_buckets(members))
     other_group_share = show_other_group(name, bospy, members) if bospy != members else "     --     "
 
-    print "%-25s %5d (%s%4d)  %s %s   %s   [%s]  %s" % (
+    print("%-25s %5d (%s%4d)  %s %s   %s   [%s]  %s" % (
         name[:25], len(members), sign, delta,
         active_summary(members, 3), active_summary(members, 6),
         joining, other_group_share,
         gender_summary(members),
-    )
+    ))
 
 def join_buckets(members):
     mo_buckets = [0, 1, 2, 3, 4, 6, ]
@@ -151,12 +153,26 @@ OTHERS = """
 #    Boston-Mobile-App-Developers-iPhone-Droid-iPad
 #    The-Cambridge-Semantic-Web-Meetup-Group
 
-for other in OTHERS.split():
-    members = group_members(group_urlname=other)
-    show_group(other, members, len(bospy))
+if 1:
+    from concurrent.futures import ThreadPoolExecutor
+
+    def parallel(group_urlname):
+        members = group_members(group_urlname=group_urlname)
+        return group_urlname, members
+
+    with ThreadPoolExecutor() as executor:
+        for other, members in executor.map(parallel, OTHERS.split()):
+            show_group(other, members, len(bospy))
+
+else:
+    for other in OTHERS.split():
+        members = group_members(group_urlname=other)
+        show_group(other, members, len(bospy))
 
 a = len(all_names)
 u = len(unknown_names)
 print("Gendered {} names of {}, {:.1f}%".format(a - u, a, 100.0 * (a - u) / a))
-#print("\nUnknown gender:")
-#print("\n".join(sorted(unknown_names)))
+with open("allnames.txt", "w", encoding='utf8') as f:
+    print("\n".join(sorted(all_names)), file=f)
+with open("unknown.txt", "w") as f:
+    print("\n".join(sorted(unknown_names)), file=f)
