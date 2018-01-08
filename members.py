@@ -114,19 +114,45 @@ OTHERS = """
     nycpython
     NYC-PyLadies
     djangoboston
+    phillypug
+    python-atlanta
+    pdxpython
+    bostonphp
+    The-Boston-Amazon-Web-Services-Meetup-Group
+    Boston-Devops
+    boston-java
+    Code-For-Boston
+    ReactJS-Boston
+    TechinmotionBoston
+    Boston_New_Technology
+    Boston-Frontend-Developers
     Open-edX-Boston
     openedX
-"""
-"""
-    bostonphp
-    Boston_New_Technology
     sfpython
     django-nyc
+    BeginnerProgrammers
+    ReactNYC
+    codecrewny
+    learn-python-nyc
+    python-plus-data-science
+    gdgnyc
+    nycjava
+    mysqlnyc
+    LocalTechNewYork
+    Boston-Node
+    gdg-boston
+    Boston-Startup-Founder-101
+    Boston-Social-Professional-Networking
+    Boston-Haskell
+    ministry-of-testing-boston
+    AC-BOS
+    bostonml
+    ATT-Boston-Tech-Entertainment
+    Boston-Marketing-Technology-Meetup
+"""
+"""
     frpythoneers
-    pdxpython
     Openstack-Boston
-    boston-java
-    TechinmotionBoston
     bostonsoftware
 """
 #    Code-Mentors-Boston
