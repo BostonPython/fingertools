@@ -8,7 +8,7 @@ import math
 people = int(input("How many RSVPs? ") or 0)
 
 # The MUC (Meetup Universal Constant)
-muc = 65
+muc = 55
 muc_str = input(f"What percentage will show up? [{muc}] ")
 if muc_str.strip():
     muc = int(muc_str.strip())
@@ -41,7 +41,7 @@ print(f"🍕  {pies:.2f} pizzas (or so)")
 #   67 veggie 41%
 
 meat = int(.39 * pies) or 1
-veggie = int(.41 * pies) or 1
+veggie = int(.33 * pies) or 1
 cheese = pies - meat - veggie
 if cheese < 1:
     cheese = 1
@@ -62,7 +62,7 @@ print(f"🍕  {(cheese+meat+veggie)} total")
 #   14 Diet Coke    15%
 #    8 Sprite       10%
 
-cups = 2 * attending
+cups = 1.5 * attending
 cups_per_bottle = 67.0 / 8  # 67 ounces in a 2-liter bottle
 
 def round_bottle(b):
