@@ -7,7 +7,7 @@ from __future__ import print_function
 import pprint, time
 from collections import defaultdict
 
-from gend import guess_gender
+#from gend import guess_gender
 import meetup
 
 meetup.DEBUG = 0
@@ -24,11 +24,11 @@ def group_members(**kwargs):
         joined = time.strptime(m['joined'].replace("EDT ", "").replace("EST ", ""), "%a %b %d %H:%M:%S %Y")
         m['joinage'] = time.time() - time.mktime(joined)
         all_names.add(m['name'].lower())
-        gend = guess_gender(m['name'])
-        if gend not in ['male', 'female']:
-            unknown_names.add(m['name'].lower())
-            gend = "unknown"
-        m['gender'] = gend
+        # gend = guess_gender(m['name'])
+        # if gend not in ['male', 'female']:
+        #     unknown_names.add(m['name'].lower())
+        #     gend = "unknown"
+        # m['gender'] = gend
     return members
 
 def print_members(members):
@@ -88,7 +88,7 @@ def show_group(name, members, baseline=None):
         name[:25], len(members), sign, delta,
         active_summary(members, 3), active_summary(members, 6),
         joining, other_group_share,
-        gender_summary(members),
+        "",#gender_summary(members),
     ))
 
 def join_buckets(members):
