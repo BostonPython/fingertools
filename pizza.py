@@ -1,5 +1,4 @@
 #!/usr/bin/env python3
-#  -*- coding: utf-8 -*-
 
 """How many pizzas do we need?"""
 
@@ -25,7 +24,7 @@ slices = attending * 2.5
 # Basic pizza geometry
 pies = slices / 8
 
-print(f"🍕  {pies:.2f} pizzas (or so)")
+print(f"🍕  {pies:.2f} pizzas (or so) - XLarge 16-inch")
 
 # From answers to the 10/2012 project night:
 #   81 answers
